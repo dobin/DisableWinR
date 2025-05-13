@@ -6,8 +6,11 @@
 
 HHOOK g_hook = NULL;
 BOOL g_win_down = FALSE;
+BOOL is_system = FALSE;
 char* open_url = NULL;
 
+BOOL IsRunningAsSystem();
+int open_url_as_user(const char* url);
 
 BOOL WINAPI CtrlHandler(DWORD fdwCtrlType);
 void cleanup();
@@ -15,8 +18,14 @@ void cleanup();
 
 void HandleWinR() {
     printf("Blocked Win+R\n");
+
     if (open_url != NULL) {
-        ShellExecuteA(NULL, "open", open_url, NULL, NULL, SW_SHOWNORMAL);
+        if (is_system) {
+            open_url_as_user(open_url);
+        }
+        else {
+            ShellExecuteA(NULL, "open", open_url, NULL, NULL, SW_SHOWNORMAL);
+        }
     }
 }
 
@@ -59,10 +68,15 @@ BOOL InstallHook() {
 
 
 int main(int argc, char** argv) {
+    if (IsRunningAsSystem()) {
+		printf("INFO: running as SYSTEM\n");
+		is_system = TRUE;
+    }
+	
     if (argc == 2) {
         open_url = argv[1];
         printf("URL to open: %s\n", open_url);
-        printf("This will ONLY work if the program is run in the context the current user session.\n");
+        printf("Note: doesnt work with local admin. Needs service or SYSTEM.\n");
     }
 
     if (!SetConsoleCtrlHandler(CtrlHandler, TRUE)) {
