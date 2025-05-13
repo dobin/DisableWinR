@@ -1,9 +1,12 @@
 # Disable Win-R
 
-This disables the Win-R shortcut, which is used to open the Run dialog in Windows. 
+This disables the `Win-R` shortcut, which is used to open the Run dialog in Windows. 
 
-Because of copy Win-R paste phishing attacks
+Because of how common `Win-R` phishing attacks are.
 
+No more: 
+
+![phishing](https://github.com/dobin/DisableWinR/blob/main/verification.png?raw=true)
 
 # Usage
 
@@ -29,7 +32,7 @@ give URL as first argument:
 
 # How it works
 
-It will silently eat the `R` when `Win` is pressed when doing `Win-R`.
+It will silently eat the `R` when `Win` is pressed.
 
 Using `SetWindowsHookEx()` callback. 
 
