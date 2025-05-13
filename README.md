@@ -6,7 +6,7 @@ Because of how common `Win-R` phishing attacks are.
 
 No more: 
 
-![phishing](https://github.com/dobin/DisableWinR/blob/main/verification.png?raw=true)
+![phishing](https://github.com/dobin/DisableWinR/blob/master/verification.png?raw=true)
 
 # Usage
 
