@@ -29,6 +29,12 @@ give URL as first argument:
 > DisableWinR.exe https://example.com
 ```
 
+To make it start but not do anything:
+```
+> DisableWinR.exe --disable https://example.com
+> DisableWinR.exe --disable
+```
+
 
 # How it works
 

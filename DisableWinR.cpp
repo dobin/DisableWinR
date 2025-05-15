@@ -8,6 +8,7 @@ HHOOK g_hook = NULL;
 BOOL g_win_down = FALSE;
 BOOL is_system = FALSE;
 char* open_url = NULL;
+BOOL is_enabled = TRUE;
 
 BOOL IsRunningAsSystem();
 int open_url_as_user(const char* url);
@@ -74,17 +75,35 @@ int main(int argc, char** argv) {
     }
 	
     if (argc == 2) {
-        open_url = argv[1];
-        printf("URL to open: %s\n", open_url);
-        printf("Note: doesnt work with local admin. Needs service or SYSTEM.\n");
+        // DisableWinR.exe --disable
+		if (strstr(argv[1], "disable") != NULL) {
+			printf("INFO: Disabled\n");
+			is_enabled = FALSE;
+        }
+        // DisableWinR.exe http://bla.com
+        else {
+            open_url = argv[1];
+            printf("URL to open: %s\n", open_url);
+            printf("Note: Run in user context, or as SYSTEM\n");
+            printf("      local admin doesnt have the permissions\n");
+        }
+    }
+    else if (argc == 3) {
+        // DisableWinR.exe --disable http://bla.com
+        if (strstr(argv[1], "disable") != NULL) {
+            printf("INFO: Disabled\n");
+            is_enabled = FALSE;
+        }
     }
 
     if (!SetConsoleCtrlHandler(CtrlHandler, TRUE)) {
         printf("WARNING: Could not set ctrl-c handler\n");
     }
 
-    if (!InstallHook()) {
-        return 1;
+    if (is_enabled) {
+        if (!InstallHook()) {
+            return 1;
+        }
     }
 
     MSG msg;
