@@ -2,11 +2,16 @@
 
 This disables the `Win-R` shortcut, which is used to open the Run dialog in Windows. 
 
-Because of how common `Win-R` phishing attacks are.
+Because of how common ClickFix execbait attacks are.
 
 No more: 
 
 ![phishing](https://github.com/dobin/DisableWinR/blob/master/verification.png?raw=true)
+
+Update: Can disable it in windows, see [this toot](https://infosec.exchange/@mttaggart/114503066592856224):
+
+`HKEY_CURRENT_USER\SOFTWARE\Microsoft\CurrentVersion\Explorer\Advanced\DisabledHotkeys = R`.
+
 
 # Usage
 
